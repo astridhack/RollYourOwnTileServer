@@ -1,0 +1,36 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+   <head>
+      <title></title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2"></script>
+      <script type="text/javascript">
+          var map = null;
+          var tileLayer;
+
+          function GetMap() {
+              map = new VEMap('myMap');
+              map.LoadMap(new VELatLong(52, 0), 5, 'r', false);
+              GetTiles();
+          }
+
+          function GetTiles() {
+
+              var tileSourceSpec = new VETileSourceSpecification("lidar", "tiles/r%4.png");
+              tileSourceSpec.NumServers = 1;
+              tileSourceSpec.Opacity = .7;
+              tileSourceSpec.ZIndex = 100;
+
+              map.AddTileLayer(tileSourceSpec, true);
+          }
+          function DeleteTileLayer() {
+              map.DeleteTileLayer("lidar");
+          } 
+      </script>
+   </head>
+   <body onload="GetMap();">
+      <div id='myMap' style="position:relative; width:800px; height:600px;"></div>
+      <a href="#" onclick="DeleteTileLayer();">Remove the tile layer</a>
+   </body>
+</html>
